@@ -284,9 +284,9 @@ class App extends React.Component {
         const clientOptions = Array.from(this.state.clients.keys()).map(id => (
             React.createElement('option', { key: id, value: id }, id)
         ));
-        return React.createElement('div', { style: { backgroundColor: "#181a1b00", color: "white", width: "fit", marginLeft: "auto" } },
+        return React.createElement('div', { style: { backgroundColor: "#181a1b00", color: "white", width: "fit-content", marginLeft: "auto", marginRight: "64px", marginTop: "24px" } },
             React.createElement('div', { style: { padding: "4px", display: "flex", flexDirection: "row" } },
-                React.createElement('div', { style: { marginLeft: "8px", display: "flex", flexDirection: "column", height: "fit" } },
+                React.createElement('div', { style: { marginRight: "8px", display: "flex", flexDirection: "column", height: "fit" } },
                     this.state.showBoard && React.createElement('label', null,
                         React.createElement('select', { value: this.state.selectedClientId || "", onChange: this.handleClientChange },
                             React.createElement('option', { value: "", disabled: true }, 'Select a player'),
