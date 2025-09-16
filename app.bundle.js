@@ -159,7 +159,7 @@ class BingoCanvas extends React.Component {
         }
 
         const TOOLTIP_WIDTH = 220;
-        const TOOLTIP_HEIGHT = 90;
+        const TOOLTIP_HEIGHT = 50;
         canv.onmousemove = (e) => {
             const rect = canv.getBoundingClientRect();
             let x = Math.floor(e.clientX - Math.round(rect.left)) - (square.border + square.margin) / 2;
@@ -189,7 +189,7 @@ class BingoCanvas extends React.Component {
                     this.tooltipRef.current.style.display = 'block';
                     this.tooltipRef.current.style.left = left + 'px';
                     this.tooltipRef.current.style.top = top + 'px';
-                    this.tooltipRef.current.innerHTML = `<span style="font-size:1.25rem;font-weight:bold;">Challenge: ${board.goals[idx].category}</span><br><span>${board.goals[idx].description}</span>`;
+                    this.tooltipRef.current.innerHTML = `<span style="font-weight:bold;">${board.goals[idx].category}</span><br><span>${board.goals[idx].description}</span>`;
                 }
                 if (!this.state.tooltipVisible)
                     this.setState({ tooltipVisible: true });
@@ -221,14 +221,15 @@ class BingoCanvas extends React.Component {
                     display: this.state.tooltipVisible ? 'block' : 'none',
                     position: 'absolute',
                     width: 220,
-                    minHeight: 90,
+                    minHeight: 50,
                     background: 'rgba(30,30,30,0.95)',
                     color: '#fff',
                     padding: '6px 8px 12px 12px',
                     borderRadius: 6,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
                     pointerEvents: 'none',
                     zIndex: 10,
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                    font: "600 10pt \"Segoe UI\", sans-serif"
                 }
             })
         );
