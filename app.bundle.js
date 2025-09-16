@@ -2,6 +2,10 @@ class BingoCanvas extends React.Component {
     constructor(props) {
         super(props);
         this.canvasRef = React.createRef();
+        this.tooltipRef = React.createRef();
+        this.state = {
+            tooltipVisible: false
+        };
     }
     componentDidMount() { this.renderCanvas(); }
     componentDidUpdate() { this.renderCanvas(); }
@@ -149,27 +153,84 @@ class BingoCanvas extends React.Component {
                 ctx.beginPath();
                 ctx.strokeStyle = _colors[0].substring(0, 7);
                 ctx.lineWidth = square.border;
-                ctx.lineCap = "butt";
-                ctx.moveTo(x, y);
-                ctx.lineTo(x + square.width, y);
-                ctx.moveTo(x + square.width, y);
-                ctx.lineTo(x + square.width, y + square.height);
-                ctx.moveTo(x + square.width, y + square.height);
-                ctx.lineTo(x, y + square.height);
-                ctx.moveTo(x, y + square.height);
-                ctx.lineTo(x, y);
+                ctx.roundRect(x, y, square.width, square.height, 4);
                 ctx.stroke();
             }
         }
+
+        const TOOLTIP_WIDTH = 220;
+        const TOOLTIP_HEIGHT = 90;
+        canv.onmousemove = (e) => {
+            const rect = canv.getBoundingClientRect();
+            let x = Math.floor(e.clientX - Math.round(rect.left)) - (square.border + square.margin) / 2;
+            let y = Math.floor(e.clientY - Math.round(rect.top)) - (square.border + square.margin) / 2;
+            let mouseX = e.clientX - rect.left;
+            let mouseY = e.clientY - rect.top;
+            if (transpose) {
+                let t = y; y = x; x = t;
+            }
+            let sqWidth = square.width + square.margin + square.border;
+            let sqHeight = square.height + square.margin + square.border;
+            let col = Math.floor(x / sqWidth);
+            let row = Math.floor(y / sqHeight);
+            if (
+                x >= 0 && y >= 0 &&
+                (x % sqWidth) < (sqWidth - square.margin) &&
+                (y % sqHeight) < (sqHeight - square.margin)
+            ) {
+                const idx = row + col * board.width;
+                let left = mouseX - TOOLTIP_WIDTH / 2;
+                let top = mouseY + 16;
+                if (left + TOOLTIP_WIDTH > 450) left = 450 - TOOLTIP_WIDTH - 4;
+                if (left < 4) left = 4;
+                if (top + TOOLTIP_HEIGHT > 450) top = 450 - TOOLTIP_HEIGHT - 4;
+                if (top < 4) top = 4;
+                if (this.tooltipRef.current) {
+                    this.tooltipRef.current.style.display = 'block';
+                    this.tooltipRef.current.style.left = left + 'px';
+                    this.tooltipRef.current.style.top = top + 'px';
+                    this.tooltipRef.current.innerHTML = `<span style="font-size:1.25rem;font-weight:bold;">Challenge: ${board.goals[idx].category}</span><br><span>${board.goals[idx].description}</span>`;
+                }
+                if (!this.state.tooltipVisible)
+                    this.setState({ tooltipVisible: true });
+            } else {
+                if (this.tooltipRef.current)
+                    this.tooltipRef.current.style.display = 'none';
+                if (this.state.tooltipVisible)
+                    this.setState({ tooltipVisible: false });
+            }
+        };
+        canv.onmouseleave = () => {
+            if (this.tooltipRef.current)
+                this.tooltipRef.current.style.display = 'none';
+            if (this.state.tooltipVisible)
+                this.setState({ tooltipVisible: false });
+        };
     }
     render() {
-        return React.createElement('div', null,
+        return React.createElement('div', { style: { position: 'relative' } },
             React.createElement('canvas', {
                 ref: this.canvasRef,
                 width: "450px",
                 height: "450px",
                 id: 'board'
-            }, 'Canvas support and scripting are required.')
+            }, 'Canvas support and scripting are required.'),
+            React.createElement('div', {
+                ref: this.tooltipRef,
+                style: {
+                    display: this.state.tooltipVisible ? 'block' : 'none',
+                    position: 'absolute',
+                    width: 220,
+                    minHeight: 90,
+                    background: 'rgba(30,30,30,0.95)',
+                    color: '#fff',
+                    padding: '6px 8px 12px 12px',
+                    borderRadius: 6,
+                    pointerEvents: 'none',
+                    zIndex: 10,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                }
+            })
         );
     }
 }
