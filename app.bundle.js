@@ -258,13 +258,25 @@ class App extends React.Component {
             clients: new Map(),
             selectedClientId: null,
             connected: false,
-            showBoard: false
+            showBoard: false,
+            showDropdown: false,
         };
         if (this.props.socket) {
             this.setSocket(this.props.socket);
         }
+        this.dropdownRef = React.createRef();
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
+    handleClickOutside(event) {
+        if (this.dropdownRef.current && !this.dropdownRef.current.contains(event.target)) {
+            this.setState({ showDropdown: false });
+        }
+    }
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
     async componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
         // Adapted from bingovista.js
         //	Prepare atlases
         atlases[0].img = "./lib/bingovista/bvicons.png";
@@ -321,7 +333,7 @@ class App extends React.Component {
         }).finally(() => this.setState({ loading: false }));
     }
     handleClientChange = (e) => {
-        const clientId = e.target.value;
+        const clientId = e.target.innerText;
         const client = this.state.clients.get(clientId);
         this.setState({
             selectedClientId: clientId,
@@ -333,23 +345,35 @@ class App extends React.Component {
     toggleBoard = () => {
         this.setState((prevState) => ({ showBoard: !prevState.showBoard }));
     };
+    toggleDropdown = () => {
+        this.setState((prevState) => ({ showDropdown: !prevState.showDropdown }));
+    };
     render() {
         const clientOptions = Array.from(this.state.clients.keys()).map(id => (
-            React.createElement('option', { key: id, value: id }, id)
+            React.createElement('div', { key: id, value: id, onClick: (e) => { this.toggleDropdown(), this.handleClientChange(e) } }, id)
         ));
         return React.createElement('div', { style: { backgroundColor: "#181a1b00", color: "white", width: "fit-content", marginLeft: "auto", marginRight: "64px", marginTop: "24px" } },
             React.createElement('div', { style: { padding: "4px", display: "flex", flexDirection: "row" } },
                 React.createElement('div', { style: { marginRight: "8px", display: "flex", flexDirection: "column", height: "fit" } },
-                    this.state.showBoard && React.createElement('label', null,
-                        React.createElement('select', { value: this.state.selectedClientId || "", onChange: this.handleClientChange },
-                            React.createElement('option', { value: "", disabled: true }, 'Select a player'),
-                            ...clientOptions
+                    this.state.showBoard && React.createElement('div', { ref: this.dropdownRef, className: "custom-select", style: { padding: "8px", background: "#0a0a0a", borderRadius: "8px" } },
+                        React.createElement('div', { className: "select-selected", onClick: this.toggleDropdown },
+                            this.state.selectedClientId || "Select a player"
+                        ),
+                        React.createElement('div', { style: { padding: "4px", background: "#0a0a0a", borderRadius: "12px", position: "absolute", top: "calc(100%)", left: 0, right: 0, zIndex: 99, display: this.state.showDropdown ? "block" : "none" } },
+                            React.createElement('div', { className: "select-items" },
+                                clientOptions.length === 0 ? React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" }, onClick: this.toggleDropdown }, 'No players') : React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" } }, 'Select a player'),
+                                ...clientOptions
+                            )
                         )
                     ),
-                    React.createElement('button', {
-                        style: { marginTop: this.state.showBoard ? "8px" : "25vh", fontSize: "16px", opacity: this.state.showBoard ? 1 : 0.5, maxWidth: "fit-content" },
-                        onClick: this.toggleBoard
-                    }, this.state.showBoard ? "Hide Board" : "Show Board")
+                    React.createElement('div', { style: { background: "#1a1a1a", padding: "4px", marginTop: this.state.showBoard ? "8px" : "25vh", fontSize: "16px", opacity: this.state.showBoard ? 1 : 0.5, maxWidth: "fit-content", borderRadius: "8px" } },
+                        React.createElement('div', { className: "button-wrapper" },
+                            React.createElement('button', {
+                                className: "back-button",
+                                onClick: this.toggleBoard
+                            }, this.state.showBoard ? "Hide Board" : "Show Board")
+                        )
+                    )
                 ),
                 this.state.showBoard && React.createElement(BingoCanvas, {
                     bingoString: this.state.s,

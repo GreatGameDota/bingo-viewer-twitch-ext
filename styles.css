@@ -1,0 +1,136 @@
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.button-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.button-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid white;
+    border-radius: 8px;
+    display: none;
+}
+
+.button-wrapper:hover::before {
+    display: block;
+}
+
+.back-button {
+    background-color: transparent;
+    color: white;
+    border: 2px solid transparent;
+    padding: 8px 16px;
+    cursor: pointer;
+    font: 600 10pt \"Segoe UI\", sans-serif;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.back-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid white;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.back-button:hover::before {
+    animation: flicker 0.4s ease-in-out infinite;
+}
+
+@keyframes flashGradient {
+    0%, 100% { 
+        opacity: 1;
+    }
+    50% { 
+        opacity: 0.5;
+    }
+}
+
+.custom-select {
+    position: relative;
+    display: inline-block;
+    min-width: 180px;
+}
+
+.select-selected {
+    background-color: #0a0a0a;
+    color: white;
+    /* border: 2px solid white; */
+    border-radius: 8px;
+    padding: 6px 8px;
+    font: 600 10pt \"Segoe UI\", sans-serif;
+    cursor: pointer;
+    position: relative;
+    outline: 2px solid white;
+    outline-offset: 0px;
+    transition: outline-offset 0.2s ease-in-out;
+}
+
+.select-selected:hover {
+    background-color: #1a1a1a;
+    outline-offset: 2px;
+}
+
+.select-selected::after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid white;
+}
+
+.select-items {
+    background-color: #0a0a0a;
+    border: 2px solid white;
+    border-radius: 8px;
+    max-height: 250px;
+    overflow-y: hidden;
+}
+
+.select-items div {
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    font: 600 10pt \"Segoe UI\", sans-serif;
+    position: relative;
+}
+
+.select-items div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 80%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.select-items div:hover::before {
+    opacity: 1;
+    animation: flashGradient 0.75s ease-in-out infinite;
+}
