@@ -14,7 +14,7 @@ class BingoCanvas extends React.Component {
             margin: 4,
             border: 2,
             color: "#ffffff",
-            background: "#020204",
+            background: "#020204cc",
             font: "600 10pt \"Segoe UI\", sans-serif"
         };
         var transpose = true;
@@ -80,8 +80,7 @@ class BingoCanvas extends React.Component {
         square.height = Math.round((canv.height / board.height) - square.margin - square.border);
 
         var ctx = this.canvasRef.current.getContext("2d");
-        ctx.fillStyle = square.background;
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         for (var i = 0; i < board.goals.length; i++) {
             var x, y, t;
             x = Math.floor(i / board.height) * (square.width + square.margin + square.border)
@@ -136,6 +135,9 @@ class BingoCanvas extends React.Component {
                 }
 
                 ctx.restore();
+            } else {
+                ctx.fillStyle = square.background;
+                ctx.fillRect(x, y, square.width, square.height);
             }
 
             drawSquare(ctx, board.goals[i], x, y, square);
@@ -355,18 +357,18 @@ class App extends React.Component {
         return React.createElement('div', { style: { backgroundColor: "#181a1b00", color: "white", width: "fit-content", marginLeft: "auto", marginRight: "64px", marginTop: "24px" } },
             React.createElement('div', { style: { padding: "4px", display: "flex", flexDirection: "row" } },
                 React.createElement('div', { style: { marginRight: "8px", display: "flex", flexDirection: "column", height: "fit" } },
-                    this.state.showBoard && React.createElement('div', { ref: this.dropdownRef, className: "custom-select", style: { padding: "8px", background: "#0a0a0a", borderRadius: "8px" } },
+                    this.state.showBoard && React.createElement('div', { ref: this.dropdownRef, className: "custom-select", style: { padding: "8px", background: "#0a0a0acc", borderRadius: "8px" } },
                         React.createElement('div', { className: "select-selected", onClick: this.toggleDropdown },
                             this.state.selectedClientId || "Select a player"
                         ),
-                        React.createElement('div', { style: { padding: "4px", background: "#0a0a0a", borderRadius: "12px", position: "absolute", top: "calc(100%)", left: 0, right: 0, zIndex: 99, display: this.state.showDropdown ? "block" : "none" } },
+                        React.createElement('div', { style: { padding: "4px", background: "#0a0a0acc", borderRadius: "12px", position: "absolute", top: "calc(100%)", left: 0, right: 0, zIndex: 99, display: this.state.showDropdown ? "block" : "none" } },
                             React.createElement('div', { className: "select-items" },
                                 clientOptions.length === 0 ? React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" }, onClick: this.toggleDropdown }, 'No players') : React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" } }, 'Select a player'),
                                 ...clientOptions
                             )
                         )
                     ),
-                    React.createElement('div', { style: { background: "#1a1a1a", padding: "4px", marginTop: this.state.showBoard ? "8px" : "25vh", fontSize: "16px", opacity: this.state.showBoard ? 1 : 0.5, maxWidth: "fit-content", borderRadius: "8px" } },
+                    React.createElement('div', { style: { background: "#1a1a1a", padding: "4px", marginTop: this.state.showBoard ? "8px" : "25vh", fontSize: "16px", opacity: this.state.showBoard ? 0.8 : 0.5, maxWidth: "fit-content", borderRadius: "8px" } },
                         React.createElement('div', { className: "button-wrapper" },
                             React.createElement('button', {
                                 className: "back-button",
