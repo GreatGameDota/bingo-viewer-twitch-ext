@@ -270,7 +270,7 @@ class App extends React.Component {
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
     handleClickOutside(event) {
-        if (this.dropdownRef.current && !this.dropdownRef.current.contains(event.target)) {
+        if (this.dropdownRef.current && !this.dropdownRef.current.contains(event.target) && this.state.showDropdown) {
             this.setState({ showDropdown: false });
         }
     }
