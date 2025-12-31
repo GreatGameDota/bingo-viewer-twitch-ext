@@ -262,11 +262,19 @@ class App extends React.Component {
             connected: false,
             showBoard: false,
             showDropdown: false,
+            dragging: false,
+            hasMoved: false,
+            dragStartX: 0,
+            dragStartY: 0,
+            dragOffsetX: 0,
+            dragOffsetY: 0,
+            buttonPosition: null
         };
         if (this.props.socket) {
             this.setSocket(this.props.socket);
         }
         this.dropdownRef = React.createRef();
+        this.buttonWrapperRef = React.createRef();
         this.handleClickOutside = this.handleClickOutside.bind(this);
     }
     handleClickOutside(event) {
@@ -350,6 +358,65 @@ class App extends React.Component {
     toggleDropdown = () => {
         this.setState((prevState) => ({ showDropdown: !prevState.showDropdown }));
     };
+    handleDragStart = (e) => {
+        if (e.target.tagName === 'svg' || e.target.tagName === 'path') {
+            e.preventDefault();
+            e.stopPropagation();
+            const rect = this.buttonWrapperRef.current.getBoundingClientRect();
+            this.setState({
+                dragging: true,
+                dragStartX: e.clientX,
+                dragStartY: e.clientY,
+                dragOffsetX: e.clientX - rect.left,
+                dragOffsetY: e.clientY - rect.top,
+                hasMoved: false
+            });
+            document.addEventListener('mousemove', this.handleDragMove);
+            document.addEventListener('mouseup', this.handleDragEnd);
+        }
+    };
+    handleDragMove = (e) => {
+        if (this.state.dragging) {
+            const dx = Math.abs(e.clientX - this.state.dragStartX);
+            const dy = Math.abs(e.clientY - this.state.dragStartY);
+            // Only move if dragged more than 3px (prevents accidental drags)
+            if (dx > 3 || dy > 3) {
+                this.setState({ hasMoved: true });
+
+                // Calculate new position
+                let newLeft = e.clientX - this.state.dragOffsetX;
+                let newTop = e.clientY - this.state.dragOffsetY;
+
+                // Get button dimensions and viewport size
+                const buttonRect = this.buttonWrapperRef.current.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+
+                // Constrain to viewport bounds (keep at least 20px visible)
+                const minVisible = 20;
+                newLeft = Math.max(-buttonRect.width + minVisible, Math.min(newLeft, viewportWidth - minVisible));
+                newTop = Math.max(0, Math.min(newTop, viewportHeight - buttonRect.height));
+
+                this.buttonWrapperRef.current.style.position = 'absolute';
+                this.buttonWrapperRef.current.style.left = `${newLeft}px`;
+                this.buttonWrapperRef.current.style.top = `${newTop}px`;
+                this.buttonWrapperRef.current.style.margin = `0`;
+            }
+        }
+    };
+    handleDragEnd = () => {
+        if (this.state.hasMoved && this.buttonWrapperRef.current) {
+            const rect = this.buttonWrapperRef.current.getBoundingClientRect();
+            this.setState({
+                dragging: false,
+                buttonPosition: { left: rect.left, top: rect.top }
+            });
+        } else {
+            this.setState({ dragging: false });
+        }
+        document.removeEventListener('mousemove', this.handleDragMove);
+        document.removeEventListener('mouseup', this.handleDragEnd);
+    };
     render() {
         const clientOptions = Array.from(this.state.clients.keys()).map(id => (
             React.createElement('div', { key: id, value: id, onClick: (e) => { this.toggleDropdown(), this.handleClientChange(e) } }, id)
@@ -368,13 +435,44 @@ class App extends React.Component {
                             )
                         )
                     ),
-                    React.createElement('div', { style: { background: "#1a1a1a", padding: "4px", marginTop: this.state.showBoard ? "8px" : "25vh", fontSize: "16px", opacity: this.state.showBoard ? 0.8 : 0.5, maxWidth: "fit-content", borderRadius: "8px" } },
+                    !this.state.showBoard && React.createElement('div', {
+                        ref: this.buttonWrapperRef, style: {
+                            background: "#1a1a1a", padding: "4px", marginTop: "45vh", fontSize: "16px", opacity: 0.5, maxWidth: "fit-content", borderRadius: "8px",
+                            ...(this.state.buttonPosition && {
+                                position: 'absolute',
+                                left: `${this.state.buttonPosition.left}px`,
+                                top: `${this.state.buttonPosition.top}px`,
+                                marginTop: 0
+                            }),
+                        }
+                    },
                         React.createElement('div', { className: "button-wrapper" },
                             React.createElement('button', {
                                 className: "back-button",
                                 onClick: this.toggleBoard
-                            }, this.state.showBoard ? "Hide Board" : "Show Board")
+                            }, "Show Board"),
+                        ),
+                        React.createElement('svg', {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            height: 24,
+                            viewBox: "0 -960 960 960",
+                            width: 24,
+                            fill: "#e3e3e3",
+                            style: { verticalAlign: "middle", cursor: this.state.dragging ? "grabbing" : "grab" },
+                            onMouseDown: this.handleDragStart,
+                        },
+                            React.createElement('path', {
+                                d: "M360-160q-33 0-56.5-23.5T280-240q0-33 23.5-56.5T360-320q33 0 56.5 23.5T440-240q0 33-23.5 56.5T360-160Zm240 0q-33 0-56.5-23.5T520-240q0-33 23.5-56.5T600-320q33 0 56.5 23.5T680-240q0 33-23.5 56.5T600-160ZM360-400q-33 0-56.5-23.5T280-480q0-33 23.5-56.5T360-560q33 0 56.5 23.5T440-480q0 33-23.5 56.5T360-400Zm240 0q-33 0-56.5-23.5T520-480q0-33 23.5-56.5T600-560q33 0 56.5 23.5T680-480q0 33-23.5 56.5T600-400ZM360-640q-33 0-56.5-23.5T280-720q0-33 23.5-56.5T360-800q33 0 56.5 23.5T440-720q0 33-23.5 56.5T360-640Zm240 0q-33 0-56.5-23.5T520-720q0-33 23.5-56.5T600-800q33 0 56.5 23.5T680-720q0 33-23.5 56.5T600-640Z"
+                            })
                         )
+                    ),
+                    this.state.showBoard && React.createElement('div', { ref: this.buttonWrapperRef, style: { background: "#1a1a1a", padding: "4px", marginTop: "8px", fontSize: "16px", opacity: 0.8, maxWidth: "fit-content", borderRadius: "8px" } },
+                        React.createElement('div', { className: "button-wrapper" },
+                            React.createElement('button', {
+                                className: "back-button",
+                                onClick: this.toggleBoard
+                            }, "Hide Board"),
+                        ),
                     )
                 ),
                 this.state.showBoard && React.createElement(BingoCanvas, {
