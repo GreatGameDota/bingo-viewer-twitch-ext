@@ -258,7 +258,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            s: "Watcher;random;BingoDamageChallenge~System.String|Any Weapon|Weapon|0|weapons><System.String|SkyWhale|Creature Type|1|creatures><0><System.Int32|4|Amount|2|NULL><System.Boolean|true|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoItemHoardChallenge~System.Boolean|true|Any Shelter|2|NULL><0><System.Int32|3|Amount|0|NULL><System.String|JellyFish|Item|1|expobject><System.String|Any Region|Region|4|regions><0><0><bChGBingoDamageChallenge~System.String|Boomerang|Weapon|0|weapons><System.String|Any Creature|Creature Type|1|creatures><0><System.Int32|6|Amount|2|NULL><System.Boolean|false|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoVistaChallenge~WSKC><System.String|WSKC_A27|Room|0|vista><110><185><0><0bChGWatcherBingoSpinningTopChallenge~System.Boolean|true|Specific location|0|NULL><System.String|WTDB|Region|1|spinners><System.Boolean|false|While Starving|3|NULL><0><System.Int32|2|Amount|2|NULL><0><0><bChGBingoKillChallenge~System.String|Barnacle|Creature Type|0|creatures><System.String|Any Weapon|Weapon Used|6|weaponsnojelly><System.Int32|3|Amount|1|NULL><0><System.String|Any Region|Region|5|regions><System.Boolean|false|In one Cycle|3|NULL><System.Boolean|false|Via a Death Pit|7|NULL><System.Boolean|false|While Starving|2|NULL><System.Boolean|false|While under mushroom effect|8|NULL><0><0bChGWatcherBingoCollectRippleSpawnChallenge~0><System.Int32|30|Amount|0|NULL><System.Boolean|false|In one Cycle|1|NULL><0><0bChGBingoPopcornChallenge~System.String|Any Region|Region|1|popcornRegions><System.Boolean|true|Different Regions|2|NULL><System.Boolean|false|In one Cycle|3|NULL><0><System.Int32|5|Amount|0|NULL><><0><0bChGBingoPinChallenge~0><System.Int32|1|Amount|0|NULL><System.String|BasiliskLizard|Creature Type|1|creatures><><System.String|Any Region|Region|2|regions><0><0bChGWatcherBingoCollectPearlChallenge~System.Boolean|false|Specific Pearl|0|NULL><System.String|WTDA_AUDIO_JAM1|Pearl|1|Wpearls><0><System.Int32|3|Amount|3|NULL><0><0><bChGWatcherBingoEatChallenge~System.Int32|4|Amount|3|NULL><0><0><System.String|FireSpriteLarva|Food type|0|Wfood><System.Boolean|false|While Starving|2|NULL><0><0bChGBingoDamageChallenge~System.String|Any Weapon|Weapon|0|weapons><System.String|Rattler|Creature Type|1|creatures><0><System.Int32|4|Amount|2|NULL><System.Boolean|false|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoPearlHoardChallenge~System.Boolean|false|Common Pearls|0|NULL><System.Boolean|false|Any Shelter|2|NULL><0><System.Int32|2|Amount|1|NULL><System.String|WRFA|Region|3|regions><0><0><bChGBingoGlobalScoreChallenge~0><System.Int32|130|Target Score|0|NULL><0><0bChGBingoUnlockChallenge~System.String|WARG|Unlock|0|unlocks><0><0bChGBingoVistaChallenge~WPGA><System.String|WPGA_A14|Room|0|vista><491><630><0><0bChGWatcherBingoTameChallenge~System.Boolean|true|Specific Creature Type|0|NULL><System.String|Salamander|Creature Type|1|Wfriend><0><System.Int32|2|Amount|2|NULL><0><0><bChGBingoKarmaFlowerChallenge~System.String|WORA|Region|1|regions><System.Boolean|false|Different Regions|2|NULL><System.Boolean|false|In one Cycle|3|NULL><0><System.Int32|7|Amount|0|NULL><><0><0bChGBingoTradeChallenge~0><System.Int32|20|Value|0|NULL><0><0bChGWatcherBingoAchievementChallenge~System.String|Chieftain|Passage|0|Wpassage><0><0bChGBingoLickChallenge~0><System.Int32|4|Amount|0|NULL><0><0><bChGBingoItemHoardChallenge~System.Boolean|false|Any Shelter|2|NULL><0><System.Int32|2|Amount|0|NULL><System.String|FlyLure|Item|1|expobject><System.String|Any Region|Region|4|regions><0><0><bChGWatcherBingoCreaturePortalChallenge~System.String|PeachLizard|Creature Type|1|Wtransport><0><System.Int32|2|Amount|0|NULL><empty><0><0bChGWatcherBingoEnterRegionChallenge~System.String|WARB|Region|0|regionsreal><0><0bChGBingoKillChallenge~System.String|Vulture|Creature Type|0|creatures><System.String|Any Weapon|Weapon Used|6|weaponsnojelly><System.Int32|1|Amount|1|NULL><0><System.String|Any Region|Region|5|regions><System.Boolean|false|In one Cycle|3|NULL><System.Boolean|false|Via a Death Pit|7|NULL><System.Boolean|false|While Starving|2|NULL><System.Boolean|false|While under mushroom effect|8|NULL><0><0",
+            s: "Watcher;random;BingoDamageChallenge~System.String|Any Weapon|Weapon|0|weapons><System.String|SkyWhale|Creature Type|1|creatures><0><System.Int32|4|Amount|2|NULL><System.Boolean|true|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoItemHoardChallenge~System.Boolean|true|Any Shelter|2|NULL><0><System.Int32|3|Amount|0|NULL><System.String|JellyFish|Item|1|expobject><System.String|Any Region|Region|4|regions><0><0><bChGBingoDamageChallenge~System.String|Boomerang|Weapon|0|weapons><System.String|Any Creature|Creature Type|1|creatures><0><System.Int32|6|Amount|2|NULL><System.Boolean|false|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoVistaChallenge~WSKC><System.String|WSKC_A27|Room|0|vista><110><185><0><0bChGWatcherBingoSpinningTopChallenge~System.Boolean|true|Specific location|0|NULL><System.String|WTDB|Region|1|spinners><System.Boolean|false|While Starving|3|NULL><0><System.Int32|2|Amount|2|NULL><0><0><bChGBingoKillChallenge~System.String|Barnacle|Creature Type|0|creatures><System.String|Any Weapon|Weapon Used|6|weaponsnojelly><System.Int32|3|Amount|1|NULL><0><System.String|Any Region|Region|5|regions><System.Boolean|false|In one Cycle|3|NULL><System.Boolean|false|Via a Death Pit|7|NULL><System.Boolean|false|While Starving|2|NULL><System.Boolean|false|While under mushroom effect|8|NULL><0><0bChGWatcherBingoCollectRippleSpawnChallenge~0><System.Int32|30|Amount|0|NULL><System.Boolean|false|In one Cycle|1|NULL><0><0bChGBingoPopcornChallenge~System.String|Any Region|Region|1|popcornRegions><System.Boolean|true|Different Regions|2|NULL><System.Boolean|false|In one Cycle|3|NULL><0><System.Int32|5|Amount|0|NULL><><0><0bChGBingoPinChallenge~0><System.Int32|1|Amount|0|NULL><System.String|BasiliskLizard|Creature Type|1|creatures><><System.String|Any Region|Region|2|regions><0><0bChGWatcherBingoCollectPearlChallenge~System.Boolean|false|Specific Pearl|0|NULL><System.String|WTDA_AUDIO_JAM1|Pearl|1|Wpearls><0><System.Int32|3|Amount|3|NULL><0><0><bChGWatcherBingoEatChallenge~System.Int32|4|Amount|3|NULL><0><0><System.String|FireSpriteLarva|Food type|0|Wfood><System.Boolean|false|While Starving|2|NULL><0><0bChGBingoDamageChallenge~System.String|Any Weapon|Weapon|0|weapons><System.String|Rattler|Creature Type|1|creatures><0><System.Int32|4|Amount|2|NULL><System.Boolean|false|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoPearlHoardChallenge~System.Boolean|false|Common Pearls|0|NULL><System.Boolean|false|Any Shelter|2|NULL><0><System.Int32|2|Amount|1|NULL><System.String|WRFA|Region|3|regions><0><0><bChGBingoScoreChallenge~0><System.Int32|152|Target Score|0|NULL><System.Boolean|false|In one Cycle|1|NULL><0><0bChGBingoUnlockChallenge~System.String|WARG|Unlock|0|unlocks><0><0bChGBingoVistaChallenge~WPGA><System.String|WPGA_A14|Room|0|vista><491><630><0><0bChGWatcherBingoTameChallenge~System.Boolean|true|Specific Creature Type|0|NULL><System.String|Salamander|Creature Type|1|Wfriend><0><System.Int32|1|Amount|1|NULL><0><0><><bChGBingoKarmaFlowerChallenge~System.String|WORA|Region|1|regions><System.Boolean|false|Different Regions|2|NULL><System.Boolean|false|In one Cycle|3|NULL><0><System.Int32|7|Amount|0|NULL><><0><0bChGBingoTradeChallenge~0><System.Int32|20|Value|0|NULL><0><0bChGWatcherBingoAchievementChallenge~System.String|Chieftain|Passage|0|Wpassage><0><0bChGBingoLickChallenge~0><System.Int32|4|Amount|0|NULL><0><0><bChGBingoItemHoardChallenge~System.Boolean|false|Any Shelter|2|NULL><0><System.Int32|2|Amount|0|NULL><System.String|FlyLure|Item|1|expobject><System.String|Any Region|Region|4|regions><0><0><bChGWatcherBingoCreaturePortalChallenge~System.String|PeachLizard|Creature Type|1|Wtransport><0><System.Int32|2|Amount|0|NULL><empty><0><0bChGWatcherBingoEnterRegionChallenge~System.String|WARB|Region|0|regionsreal><0><0bChGBingoKillChallenge~System.String|Vulture|Creature Type|0|creatures><System.String|Any Weapon|Weapon Used|6|weaponsnojelly><System.Int32|1|Amount|1|NULL><0><System.String|Any Region|Region|5|regions><System.Boolean|false|In one Cycle|3|NULL><System.Boolean|false|Via a Death Pit|7|NULL><System.Boolean|false|While Starving|2|NULL><System.Boolean|false|While under mushroom effect|8|NULL><0><0",
             boardState: "000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>001000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>111110000<>000000000".split("<>"),
             team: null,
             messages: [],
@@ -429,64 +429,70 @@ class App extends React.Component {
             React.createElement('div', { key: id, value: id, onClick: (e) => { this.toggleDropdown(), this.handleClientChange(e) } }, id)
         ));
         return React.createElement('div', { style: { backgroundColor: "#181a1b00", color: "white", width: "fit-content", marginLeft: "auto", marginRight: "64px", marginTop: "24px" } },
-            React.createElement('div', { style: { padding: "4px", display: "flex", flexDirection: "row" } },
-                React.createElement('div', { style: { marginRight: "8px", display: "flex", flexDirection: "column", height: "fit" } },
-                    this.state.showBoard && React.createElement('div', { ref: this.dropdownRef, className: "custom-select", style: { padding: "8px", background: "#0a0a0acc", borderRadius: "8px" } },
-                        React.createElement('div', { className: "select-selected", onClick: this.toggleDropdown },
-                            this.state.selectedClientId || "Select a player"
-                        ),
-                        React.createElement('div', { style: { padding: "4px", background: "#0a0a0acc", borderRadius: "12px", position: "absolute", top: "calc(100%)", left: 0, right: 0, zIndex: 99, display: this.state.showDropdown ? "block" : "none" } },
-                            React.createElement('div', { className: "select-items" },
-                                clientOptions.length === 0 ? React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" }, onClick: this.toggleDropdown }, 'No players') : React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" } }, 'Select a player'),
-                                ...clientOptions
-                            )
-                        )
-                    ),
-                    !this.state.showBoard && React.createElement('div', {
-                        ref: this.buttonWrapperRef, style: {
-                            background: "#1a1a1a", padding: "4px", marginTop: "45vh", fontSize: "16px", opacity: 0.5, maxWidth: "fit-content", borderRadius: "8px",
-                            ...(this.state.buttonPosition && {
-                                position: 'absolute',
-                                left: `${this.state.buttonPosition.left}px`,
-                                top: `${this.state.buttonPosition.top}px`,
-                                marginTop: 0
-                            }),
-                        }
-                    },
-                        React.createElement('div', { className: "button-wrapper" },
-                            React.createElement('button', {
-                                className: "back-button",
-                                onClick: this.toggleBoard
-                            }, "Show Board"),
-                        ),
-                        React.createElement('svg', {
-                            xmlns: "http://www.w3.org/2000/svg",
-                            height: 24,
-                            viewBox: "0 -960 960 960",
-                            width: 24,
-                            fill: "#e3e3e3",
-                            style: { verticalAlign: "middle", cursor: this.state.dragging ? "grabbing" : "grab" },
-                            onMouseDown: this.handleDragStart,
-                        },
-                            React.createElement('path', {
-                                d: "M360-160q-33 0-56.5-23.5T280-240q0-33 23.5-56.5T360-320q33 0 56.5 23.5T440-240q0 33-23.5 56.5T360-160Zm240 0q-33 0-56.5-23.5T520-240q0-33 23.5-56.5T600-320q33 0 56.5 23.5T680-240q0 33-23.5 56.5T600-160ZM360-400q-33 0-56.5-23.5T280-480q0-33 23.5-56.5T360-560q33 0 56.5 23.5T440-480q0 33-23.5 56.5T360-400Zm240 0q-33 0-56.5-23.5T520-480q0-33 23.5-56.5T600-560q33 0 56.5 23.5T680-480q0 33-23.5 56.5T600-400ZM360-640q-33 0-56.5-23.5T280-720q0-33 23.5-56.5T360-800q33 0 56.5 23.5T440-720q0 33-23.5 56.5T360-640Zm240 0q-33 0-56.5-23.5T520-720q0-33 23.5-56.5T600-800q33 0 56.5 23.5T680-720q0 33-23.5 56.5T600-640Z"
-                            })
-                        )
-                    ),
-                    this.state.showBoard && React.createElement('div', { ref: this.buttonWrapperRef, style: { background: "#1a1a1a", padding: "4px", marginTop: "8px", fontSize: "16px", opacity: 0.8, maxWidth: "fit-content", borderRadius: "8px" } },
-                        React.createElement('div', { className: "button-wrapper" },
-                            React.createElement('button', {
-                                className: "back-button",
-                                onClick: this.toggleBoard
-                            }, "Hide Board"),
-                        ),
-                    )
+            React.createElement('div', { style: { padding: "4px", display: "flex", flexDirection: "row",
+            ...(this.state.buttonPosition && this.state.showBoard && {
+                position: 'absolute',
+                left: `${Math.min(Math.max(this.state.buttonPosition.left, 32), window.innerWidth - 450 - 196 - 32)}px`,
+                top: `${Math.min(Math.max(this.state.buttonPosition.top, 32), window.innerHeight - 450 - 32)}px`,
+                marginTop: 0
+            })
+            }},
+            React.createElement('div', { style: { marginRight: "8px", display: "flex", flexDirection: "column", height: "fit" } },
+                this.state.showBoard && React.createElement('div', { ref: this.dropdownRef, className: "custom-select", style: { padding: "8px", background: "#0a0a0acc", borderRadius: "8px" } },
+                React.createElement('div', { className: "select-selected", onClick: this.toggleDropdown },
+                    this.state.selectedClientId || "Select a player"
                 ),
-                this.state.showBoard && React.createElement(BingoCanvas, {
-                    bingoString: this.state.s,
-                    boardState: this.state.boardState,
-                    team: this.state.team
-                })
+                React.createElement('div', { style: { padding: "4px", background: "#0a0a0acc", borderRadius: "12px", position: "absolute", top: "calc(100%)", left: 0, right: 0, zIndex: 99, display: this.state.showDropdown ? "block" : "none" } },
+                    React.createElement('div', { className: "select-items" },
+                    clientOptions.length === 0 ? React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" }, onClick: this.toggleDropdown }, 'No players') : React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" } }, 'Select a player'),
+                    ...clientOptions
+                    )
+                )
+                ),
+                !this.state.showBoard && React.createElement('div', {
+                ref: this.buttonWrapperRef, style: {
+                    background: "#1a1a1a", padding: "4px", marginTop: "45vh", fontSize: "16px", opacity: 0.5, maxWidth: "fit-content", borderRadius: "8px",
+                    ...(this.state.buttonPosition && {
+                    position: 'absolute',
+                    left: `${this.state.buttonPosition.left}px`,
+                    top: `${this.state.buttonPosition.top}px`,
+                    marginTop: 0
+                    }),
+                }},
+                React.createElement('div', { className: "button-wrapper" },
+                    React.createElement('button', {
+                    className: "back-button",
+                    onClick: this.toggleBoard
+                    }, "Show Board"),
+                ),
+                React.createElement('svg', {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    height: 24,
+                    viewBox: "0 -960 960 960",
+                    width: 24,
+                    fill: "#e3e3e3",
+                    style: { verticalAlign: "middle", cursor: this.state.dragging ? "grabbing" : "grab" },
+                    onMouseDown: this.handleDragStart,
+                },
+                    React.createElement('path', {
+                    d: "M360-160q-33 0-56.5-23.5T280-240q0-33 23.5-56.5T360-320q33 0 56.5 23.5T440-240q0 33-23.5 56.5T360-160Zm240 0q-33 0-56.5-23.5T520-240q0-33 23.5-56.5T600-320q33 0 56.5 23.5T680-240q0 33-23.5 56.5T600-160ZM360-400q-33 0-56.5-23.5T280-480q0-33 23.5-56.5T360-560q33 0 56.5 23.5T440-480q0 33-23.5 56.5T360-400Zm240 0q-33 0-56.5-23.5T520-480q0-33 23.5-56.5T600-560q33 0 56.5 23.5T680-480q0 33-23.5 56.5T600-400ZM360-640q-33 0-56.5-23.5T280-720q0-33 23.5-56.5T360-800q33 0 56.5 23.5T440-720q0 33-23.5 56.5T360-640Zm240 0q-33 0-56.5-23.5T520-720q0-33 23.5-56.5T600-800q33 0 56.5 23.5T680-720q0 33-23.5 56.5T600-640Z"
+                    })
+                )
+                ),
+                this.state.showBoard && React.createElement('div', { ref: this.buttonWrapperRef, style: { background: "#1a1a1a", padding: "4px", marginTop: "8px", fontSize: "16px", opacity: 0.8, maxWidth: "fit-content", borderRadius: "8px" } },
+                React.createElement('div', { className: "button-wrapper" },
+                    React.createElement('button', {
+                    className: "back-button",
+                    onClick: this.toggleBoard
+                    }, "Hide Board"),
+                ),
+                )
+            ),
+            this.state.showBoard && React.createElement(BingoCanvas, {
+                bingoString: this.state.s,
+                boardState: this.state.boardState,
+                team: this.state.team
+            })
             )
         );
     }
