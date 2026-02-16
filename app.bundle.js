@@ -246,11 +246,12 @@ class App extends React.Component {
                 messages: [...prevState.messages, text],
                 clients: _clients
             }));
-            if (data[2] === this.state.selectedClientId) {
+            if (data[2] === this.state.selectedClientId || this.state.selectedClientId === null) {
                 this.setState({
                     s: data[0],
                     boardState: data[1].split("<>"),
-                    team: data[3]
+                    team: data[3],
+                    selectedClientId: data[2]
                 });
             }
         };
@@ -401,7 +402,7 @@ class App extends React.Component {
 
                 // Constrain to viewport bounds (keep at least 20px visible)
                 const minVisible = 20;
-                newLeft = Math.max(-buttonRect.width + minVisible, Math.min(newLeft, viewportWidth - minVisible));
+                newLeft = Math.max(0, Math.min(newLeft, viewportWidth - buttonRect.width));
                 newTop = Math.max(0, Math.min(newTop, viewportHeight - buttonRect.height));
 
                 this.buttonWrapperRef.current.style.position = 'absolute';
@@ -411,12 +412,17 @@ class App extends React.Component {
             }
         }
     };
-    handleDragEnd = () => {
+    handleDragEnd = (e) => {
         if (this.state.hasMoved && this.buttonWrapperRef.current) {
             const rect = this.buttonWrapperRef.current.getBoundingClientRect();
+            let newLeft = e.clientX - this.state.dragOffsetX;
+            let newTop = e.clientY - this.state.dragOffsetY;
             this.setState({
                 dragging: false,
-                buttonPosition: { left: rect.left, top: rect.top }
+                buttonPosition: {
+                    left: Math.max(0, Math.min(newLeft, window.innerWidth - rect.width)),
+                    top: Math.max(0, Math.min(newTop, window.innerHeight - rect.height))
+                }
             });
         } else {
             this.setState({ dragging: false });
@@ -429,70 +435,94 @@ class App extends React.Component {
             React.createElement('div', { key: id, value: id, onClick: (e) => { this.toggleDropdown(), this.handleClientChange(e) } }, id)
         ));
         return React.createElement('div', { style: { backgroundColor: "#181a1b00", color: "white", width: "fit-content", marginLeft: "auto", marginRight: "64px", marginTop: "24px" } },
-            React.createElement('div', { style: { padding: "4px", display: "flex", flexDirection: "row",
-            ...(this.state.buttonPosition && this.state.showBoard && {
-                position: 'absolute',
-                left: `${Math.min(Math.max(this.state.buttonPosition.left, 32), window.innerWidth - 450 - 196 - 32)}px`,
-                top: `${Math.min(Math.max(this.state.buttonPosition.top, 32), window.innerHeight - 450 - 32)}px`,
-                marginTop: 0
-            })
-            }},
-            React.createElement('div', { style: { marginRight: "8px", display: "flex", flexDirection: "column", height: "fit" } },
-                this.state.showBoard && React.createElement('div', { ref: this.dropdownRef, className: "custom-select", style: { padding: "8px", background: "#0a0a0acc", borderRadius: "8px" } },
-                React.createElement('div', { className: "select-selected", onClick: this.toggleDropdown },
-                    this.state.selectedClientId || "Select a player"
-                ),
-                React.createElement('div', { style: { padding: "4px", background: "#0a0a0acc", borderRadius: "12px", position: "absolute", top: "calc(100%)", left: 0, right: 0, zIndex: 99, display: this.state.showDropdown ? "block" : "none" } },
-                    React.createElement('div', { className: "select-items" },
-                    clientOptions.length === 0 ? React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" }, onClick: this.toggleDropdown }, 'No players') : React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" } }, 'Select a player'),
-                    ...clientOptions
-                    )
-                )
-                ),
-                !this.state.showBoard && React.createElement('div', {
-                ref: this.buttonWrapperRef, style: {
-                    background: "#1a1a1a", padding: "4px", marginTop: "45vh", fontSize: "16px", opacity: 0.5, maxWidth: "fit-content", borderRadius: "8px",
-                    ...(this.state.buttonPosition && {
-                    position: 'absolute',
-                    left: `${this.state.buttonPosition.left}px`,
-                    top: `${this.state.buttonPosition.top}px`,
-                    marginTop: 0
+            React.createElement('div', {
+                ref: this.buttonWrapperRef,
+                style: {
+                    padding: "4px", display: "flex", flexDirection: "row", marginTop: "45vh",
+                    ...(this.state.buttonPosition && this.state.showBoard && {
+                        position: 'absolute',
+                        left: `${Math.min(Math.max(this.state.buttonPosition.left, 0), window.innerWidth - 450 - 196 - 32)}px`,
+                        top: `${Math.min(Math.max(this.state.buttonPosition.top, 0), window.innerHeight - 450 - 32)}px`,
+                        marginTop: 0
                     }),
-                }},
-                React.createElement('div', { className: "button-wrapper" },
-                    React.createElement('button', {
-                    className: "back-button",
-                    onClick: this.toggleBoard
-                    }, "Show Board"),
-                ),
-                React.createElement('svg', {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    height: 24,
-                    viewBox: "0 -960 960 960",
-                    width: 24,
-                    fill: "#e3e3e3",
-                    style: { verticalAlign: "middle", cursor: this.state.dragging ? "grabbing" : "grab" },
-                    onMouseDown: this.handleDragStart,
-                },
-                    React.createElement('path', {
-                    d: "M360-160q-33 0-56.5-23.5T280-240q0-33 23.5-56.5T360-320q33 0 56.5 23.5T440-240q0 33-23.5 56.5T360-160Zm240 0q-33 0-56.5-23.5T520-240q0-33 23.5-56.5T600-320q33 0 56.5 23.5T680-240q0 33-23.5 56.5T600-160ZM360-400q-33 0-56.5-23.5T280-480q0-33 23.5-56.5T360-560q33 0 56.5 23.5T440-480q0 33-23.5 56.5T360-400Zm240 0q-33 0-56.5-23.5T520-480q0-33 23.5-56.5T600-560q33 0 56.5 23.5T680-480q0 33-23.5 56.5T600-400ZM360-640q-33 0-56.5-23.5T280-720q0-33 23.5-56.5T360-800q33 0 56.5 23.5T440-720q0 33-23.5 56.5T360-640Zm240 0q-33 0-56.5-23.5T520-720q0-33 23.5-56.5T600-800q33 0 56.5 23.5T680-720q0 33-23.5 56.5T600-640Z"
+                    ...(this.state.buttonPosition && !this.state.showBoard && {
+                        position: 'absolute',
+                        left: `${Math.min(Math.max(this.state.buttonPosition.left, 0), window.innerWidth)}px`,
+                        top: `${Math.min(Math.max(this.state.buttonPosition.top, 0), window.innerHeight)}px`,
+                        marginTop: 0
                     })
-                )
+                }
+            },
+                React.createElement('div', { style: { marginRight: "8px", display: "flex", flexDirection: "column", height: "fit" } },
+                    this.state.showBoard && React.createElement('div', { ref: this.dropdownRef, className: "custom-select", style: { padding: "8px", background: "#0a0a0acc", borderRadius: "8px" } },
+                        React.createElement('div', { className: "select-selected", onClick: this.toggleDropdown },
+                            this.state.selectedClientId || "Select a player"
+                        ),
+                        React.createElement('div', { style: { padding: "4px", background: "#0a0a0acc", borderRadius: "12px", position: "absolute", top: "calc(100%)", left: 0, right: 0, zIndex: 99, display: this.state.showDropdown ? "block" : "none" } },
+                            React.createElement('div', { className: "select-items" },
+                                clientOptions.length === 0 ? React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" }, onClick: this.toggleDropdown }, 'No players') : React.createElement('div', { value: "", disabled: true, style: { fontStyle: "italic" } }, 'Select a player'),
+                                ...clientOptions
+                            )
+                        )
+                    ),
+                    !this.state.showBoard && React.createElement('div', {
+                        style: {
+                            background: "#1a1a1a", padding: "4px", fontSize: "16px", opacity: 0.5, maxWidth: "fit-content", borderRadius: "8px",
+                            ...(this.state.buttonPosition && {
+                                position: 'relative',
+                                // left: `${this.state.buttonPosition.left}px`,
+                                // top: `${this.state.buttonPosition.top}px`,
+                                marginTop: 0
+                            }),
+                        }
+                    },
+                        React.createElement('div', { className: "button-wrapper" },
+                            React.createElement('button', {
+                                className: "back-button",
+                                onClick: this.toggleBoard
+                            }, "Show Board"),
+                        ),
+                        React.createElement('svg', {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            height: 24,
+                            viewBox: "0 -960 960 960",
+                            width: 24,
+                            fill: "#e3e3e3",
+                            style: { verticalAlign: "middle", cursor: this.state.dragging ? "grabbing" : "grab" },
+                            onMouseDown: this.handleDragStart,
+                        },
+                            React.createElement('path', {
+                                d: "M360-160q-33 0-56.5-23.5T280-240q0-33 23.5-56.5T360-320q33 0 56.5 23.5T440-240q0 33-23.5 56.5T360-160Zm240 0q-33 0-56.5-23.5T520-240q0-33 23.5-56.5T600-320q33 0 56.5 23.5T680-240q0 33-23.5 56.5T600-160ZM360-400q-33 0-56.5-23.5T280-480q0-33 23.5-56.5T360-560q33 0 56.5 23.5T440-480q0 33-23.5 56.5T360-400Zm240 0q-33 0-56.5-23.5T520-480q0-33 23.5-56.5T600-560q33 0 56.5 23.5T680-480q0 33-23.5 56.5T600-400ZM360-640q-33 0-56.5-23.5T280-720q0-33 23.5-56.5T360-800q33 0 56.5 23.5T440-720q0 33-23.5 56.5T360-640Zm240 0q-33 0-56.5-23.5T520-720q0-33 23.5-56.5T600-800q33 0 56.5 23.5T680-720q0 33-23.5 56.5T600-640Z"
+                            })
+                        )
+                    ),
+                    this.state.showBoard && React.createElement('div', { style: { background: "#1a1a1a", padding: "4px", marginTop: "8px", fontSize: "16px", opacity: 0.8, maxWidth: "fit-content", borderRadius: "8px" } },
+                        React.createElement('div', { className: "button-wrapper" },
+                            React.createElement('button', {
+                                className: "back-button",
+                                onClick: this.toggleBoard
+                            }, "Hide Board"),
+                        ),
+                        React.createElement('svg', {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            height: 24,
+                            viewBox: "0 -960 960 960",
+                            width: 24,
+                            fill: "#e3e3e3",
+                            style: { verticalAlign: "middle", cursor: this.state.dragging ? "grabbing" : "grab" },
+                            onMouseDown: this.handleDragStart,
+                        },
+                            React.createElement('path', {
+                                d: "M360-160q-33 0-56.5-23.5T280-240q0-33 23.5-56.5T360-320q33 0 56.5 23.5T440-240q0 33-23.5 56.5T360-160Zm240 0q-33 0-56.5-23.5T520-240q0-33 23.5-56.5T600-320q33 0 56.5 23.5T680-240q0 33-23.5 56.5T600-160ZM360-400q-33 0-56.5-23.5T280-480q0-33 23.5-56.5T360-560q33 0 56.5 23.5T440-480q0 33-23.5 56.5T360-400Zm240 0q-33 0-56.5-23.5T520-480q0-33 23.5-56.5T600-560q33 0 56.5 23.5T680-480q0 33-23.5 56.5T600-400ZM360-640q-33 0-56.5-23.5T280-720q0-33 23.5-56.5T360-800q33 0 56.5 23.5T440-720q0 33-23.5 56.5T360-640Zm240 0q-33 0-56.5-23.5T520-720q0-33 23.5-56.5T600-800q33 0 56.5 23.5T680-720q0 33-23.5 56.5T600-640Z"
+                            })
+                        )
+                    )
                 ),
-                this.state.showBoard && React.createElement('div', { ref: this.buttonWrapperRef, style: { background: "#1a1a1a", padding: "4px", marginTop: "8px", fontSize: "16px", opacity: 0.8, maxWidth: "fit-content", borderRadius: "8px" } },
-                React.createElement('div', { className: "button-wrapper" },
-                    React.createElement('button', {
-                    className: "back-button",
-                    onClick: this.toggleBoard
-                    }, "Hide Board"),
-                ),
-                )
-            ),
-            this.state.showBoard && React.createElement(BingoCanvas, {
-                bingoString: this.state.s,
-                boardState: this.state.boardState,
-                team: this.state.team
-            })
+                this.state.showBoard && React.createElement(BingoCanvas, {
+                    bingoString: this.state.s,
+                    boardState: this.state.boardState,
+                    team: this.state.team
+                })
             )
         );
     }
