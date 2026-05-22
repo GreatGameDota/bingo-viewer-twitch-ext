@@ -15,14 +15,18 @@ class BingoCanvas extends React.Component {
             border: 2,
             color: "#ffffff",
             background: "#020204cc",
-            font: "600 10pt \"Segoe UI\", sans-serif"
+            font: "16px \"rainworldMenu\""
         };
         var transpose = true;
-        const colors = ["#e60e0e66", "#0080ff66", "#33ff0066", "#ff990066", "#ff00ff66", "#00e8e666", "#5e5e6f66", "#4d00ff66", "#ffffff66"];
+        const colors = ["#e60e0e66", "#0080ff66", "#33ff0066", "#ff990066", "#ff00ff66", "#00e8e666", "#5e5e6f66", "#4d00ff66", "#ff788366", "#61519a66", "#ffffff66"];
 
         var s = this.props.bingoString;
         const parts = s.split(";");
-        if (parts.length >= 3) { // Remove starting shelter string
+        if (parts.length === 4) { // Remove watchermode
+            parts.splice(1, 1);
+            s = parts.join(";");
+        }
+        if (parts.length === 3) { // Remove starting shelter string
             parts.splice(1, 1);
             s = parts.join(";");
         }
@@ -193,7 +197,7 @@ class BingoCanvas extends React.Component {
                     this.tooltipRef.current.style.display = 'block';
                     this.tooltipRef.current.style.left = left + 'px';
                     this.tooltipRef.current.style.top = top + 'px';
-                    this.tooltipRef.current.innerHTML = `<span style="font-weight:bold;">${board.goals[idx].category}</span><br><span>${board.goals[idx].description}</span>`;
+                    this.tooltipRef.current.innerHTML = `<span style="font-size:16px;">${board.goals[idx].category}</span><br><span>${board.goals[idx].description}</span>`;
                 }
             } else {
                 if (this.tooltipRef.current)
@@ -227,7 +231,7 @@ class BingoCanvas extends React.Component {
                     boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
                     pointerEvents: 'none',
                     zIndex: 10,
-                    font: "600 10pt \"Segoe UI\", sans-serif"
+                    font: "16px \"rainworldMenu\""
                 }
             })
         );
@@ -259,9 +263,9 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            s: "Watcher;random;BingoDamageChallenge~System.String|Any Weapon|Weapon|0|weapons><System.String|SkyWhale|Creature Type|1|creatures><0><System.Int32|4|Amount|2|NULL><System.Boolean|true|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoItemHoardChallenge~System.Boolean|true|Any Shelter|2|NULL><0><System.Int32|3|Amount|0|NULL><System.String|JellyFish|Item|1|expobject><System.String|Any Region|Region|4|regions><0><0><bChGBingoDamageChallenge~System.String|Boomerang|Weapon|0|weapons><System.String|Any Creature|Creature Type|1|creatures><0><System.Int32|6|Amount|2|NULL><System.Boolean|false|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoVistaChallenge~WSKC><System.String|WSKC_A27|Room|0|vista><110><185><0><0bChGWatcherBingoSpinningTopChallenge~System.Boolean|true|Specific location|0|NULL><System.String|WTDB|Region|1|spinners><System.Boolean|false|While Starving|3|NULL><0><System.Int32|2|Amount|2|NULL><0><0><bChGBingoKillChallenge~System.String|Barnacle|Creature Type|0|creatures><System.String|Any Weapon|Weapon Used|6|weaponsnojelly><System.Int32|3|Amount|1|NULL><0><System.String|Any Region|Region|5|regions><System.Boolean|false|In one Cycle|3|NULL><System.Boolean|false|Via a Death Pit|7|NULL><System.Boolean|false|While Starving|2|NULL><System.Boolean|false|While under mushroom effect|8|NULL><0><0bChGWatcherBingoCollectRippleSpawnChallenge~0><System.Int32|30|Amount|0|NULL><System.Boolean|false|In one Cycle|1|NULL><0><0bChGBingoPopcornChallenge~System.String|Any Region|Region|1|popcornregions><System.Boolean|true|Different Regions|2|NULL><System.Boolean|false|In one Cycle|3|NULL><0><System.Int32|5|Amount|0|NULL><><0><0bChGBingoPinChallenge~0><System.Int32|1|Amount|0|NULL><System.String|BasiliskLizard|Creature Type|1|creatures><><System.String|Any Region|Region|2|regions><0><0bChGWatcherBingoCollectPearlChallenge~System.Boolean|false|Specific Pearl|0|NULL><System.String|WTDA_AUDIO_JAM1|Pearl|1|Wpearls><0><System.Int32|3|Amount|3|NULL><0><0><bChGWatcherBingoEatChallenge~System.Int32|4|Amount|3|NULL><0><0><System.String|FireSpriteLarva|Food type|0|Wfood><System.Boolean|false|While Starving|2|NULL><0><0bChGBingoDamageChallenge~System.String|Any Weapon|Weapon|0|weapons><System.String|Rattler|Creature Type|1|creatures><0><System.Int32|4|Amount|2|NULL><System.Boolean|false|In One Cycle|3|NULL><System.String|Any Region|Region|5|regions><0><0bChGBingoPearlHoardChallenge~System.Boolean|false|Common Pearls|0|NULL><System.Boolean|false|Any Shelter|2|NULL><0><System.Int32|2|Amount|1|NULL><System.String|WRFA|Region|3|regions><0><0><bChGBingoScoreChallenge~0><System.Int32|152|Target Score|0|NULL><System.Boolean|false|In one Cycle|1|NULL><0><0bChGBingoUnlockChallenge~System.String|WARG|Unlock|0|unlocks><0><0bChGBingoVistaChallenge~WPGA><System.String|WPGA_A14|Room|0|vista><491><630><0><0bChGWatcherBingoTameChallenge~System.Boolean|true|Specific Creature Type|0|NULL><System.String|Salamander|Creature Type|1|Wfriend><0><System.Int32|1|Amount|1|NULL><0><0><><bChGBingoKarmaFlowerChallenge~System.String|WORA|Region|1|regions><System.Boolean|false|Different Regions|2|NULL><System.Boolean|false|In one Cycle|3|NULL><0><System.Int32|7|Amount|0|NULL><><0><0bChGBingoTradeChallenge~0><System.Int32|20|Value|0|NULL><0><0bChGWatcherBingoAchievementChallenge~System.String|Chieftain|Passage|0|Wpassage><0><0bChGBingoLickChallenge~0><System.Int32|4|Amount|0|NULL><0><0><bChGBingoItemHoardChallenge~System.Boolean|false|Any Shelter|2|NULL><0><System.Int32|2|Amount|0|NULL><System.String|FlyLure|Item|1|expobject><System.String|Any Region|Region|4|regions><0><0><bChGWatcherBingoCreaturePortalChallenge~System.String|PeachLizard|Creature Type|1|Wtransport><0><System.Int32|2|Amount|0|NULL><empty><0><0bChGWatcherBingoEnterRegionChallenge~System.String|WARB|Region|0|regionsreal><0><0bChGBingoKillChallenge~System.String|Vulture|Creature Type|0|creatures><System.String|Any Weapon|Weapon Used|6|weaponsnojelly><System.Int32|1|Amount|1|NULL><0><System.String|Any Region|Region|5|regions><System.Boolean|false|In one Cycle|3|NULL><System.Boolean|false|Via a Death Pit|7|NULL><System.Boolean|false|While Starving|2|NULL><System.Boolean|false|While under mushroom effect|8|NULL><0><0",
-            boardState: "000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>001000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>111110000<>000000000".split("<>"),
-            team: null,
+            s: "Rivulet;True;random;BingoDontUseItemChallenge~System.String|VultureMask|Item type|0|banitem><0><0><0><0bChGBingoDontUseItemChallenge~System.String|VultureGrub|Item type|0|banitem><1><0><0><1bChGBingoDontUseItemChallenge~System.String|LillyPuck|Item type|0|banitem><1><0><0><0bChGBingoDontUseItemChallenge~System.String|GraffitiBomb|Item type|0|banitem><0><0><0><0bChGBingoKarmaFlowerChallenge~System.String|Any Region|Region|1|regions><System.Boolean|false|Different Regions|2|NULL><System.Boolean|false|In one Cycle|3|NULL><0><System.Int32|1|Amount|0|NULL><><0><0bChGBingoTameChallenge~System.Boolean|false|Specific Creature Type|0|NULL><System.String|RedLizard|Creature Type|1|friend><0><System.Int32|3|Amount|2|NULL><0><0><><bChGWatcherBingoHatchMothGrubChallenge~System.Boolean|true|At once|1|NULL><0><System.Int32|2|Amount|0|NULL><0><0bChGWatcherBingoSpinningTopChallenge~System.Boolean|true|Specific location|0|NULL><System.String|WAUA|Region|1|spinners><System.Boolean|false|While Starving|3|NULL><0><System.Int32|3|Amount|2|NULL><0><0><bChGBingoTameChallenge~System.Boolean|true|Specific Creature Type|0|NULL><System.String|EelLizard|Creature Type|1|friend><0><System.Int32|1|Amount|2|NULL><0><0><><bChGBingoTradeTradedChallenge~0><System.Int32|1|Amount of Items|0|NULL><empty><0><0bChGBingoDodgeLeviathanChallenge~0><0bChGBingoUnlockChallenge~System.String|Watcher|Unlock|0|unlocks><0><0bChGBingoUnlockChallenge~System.String|Pomegranate|Unlock|0|unlocks><0><0bChGWatcherBingoNoRegionChallenge~System.String|WPGA|Region|0|regionsreal><0><0bChGBingoVistaChallenge~WRFB><System.String|WRFB_B01|Room|0|vista><489><110><0><0bChGBingoHatchNoodleChallenge~System.String|Any Region|Region|1|nootregions><System.Boolean|false|Different Regions|2|NULL><System.Boolean|true|At once|3|NULL><0><System.Int32|3|Amount|0|NULL><><0><0bChGBingoBombTollChallenge~System.Boolean|false|Specific toll|0|NULL><System.String|WBLA_F01|Scavenger Toll|3|tolls><System.Boolean|false|Pass the Toll|2|NULL><0><System.Int32|1|Amount|1|NULL><empty><0><0bChGBingoTradeChallenge~0><System.Int32|7|Value|0|NULL><0><0bChGWatcherBingoCreaturePortalChallenge~System.String|Tardigrade|Creature Type|1|transport><0><System.Int32|3|Amount|0|NULL><empty><0><0bChGBingoScoreChallenge~0><System.Int32|32|Target Score|0|NULL><System.Boolean|true|In one Cycle|1|NULL><0><0bChGBingoKillChallenge~System.String|EelLizard|Creature Type|0|creatures><System.String|LillyPuck|Weapon Used|6|weaponsnojelly><System.Int32|8|Amount|1|NULL><0><System.String|Any Region|Region|5|regions><System.Boolean|false|In one Cycle|3|NULL><System.Boolean|false|Via a Death Pit|7|NULL><System.Boolean|false|While Starving|2|NULL><System.Boolean|false|While under mushroom effect|8|NULL><0><0bChGBingoLickChallenge~0><System.Int32|1|Amount|0|NULL><0><0><bChGWatcherBingoNoRegionChallenge~System.String|WRRA|Region|0|regionsreal><0><0bChGWatcherBingoCollectRippleSpawnChallenge~0><System.Int32|19|Amount|0|NULL><System.Boolean|false|In one Cycle|1|NULL><0><0bChGBingoDamageChallenge~System.String|GraffitiBomb|Weapon|0|weapons><System.String|Centiwing|Creature Type|1|creatures><0><System.Int32|2|Amount|2|NULL><System.Boolean|false|In One Cycle|3|NULL><System.String|Any Region|Region|4|regions><0><0",
+            boardState: "000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000<>000000000".split("<>"),
+            team: 0,
             messages: [],
             clients: new Map(),
             selectedClientId: null,
@@ -467,7 +471,7 @@ class App extends React.Component {
                     ),
                     !this.state.showBoard && React.createElement('div', {
                         style: {
-                            background: "#1a1a1a", padding: "4px", fontSize: "16px", opacity: 0.5, maxWidth: "fit-content", borderRadius: "8px",
+                            background: "#1a1a1a", padding: "4px", opacity: 0.5, maxWidth: "fit-content", borderRadius: "8px",
                             ...(this.state.buttonPosition && {
                                 position: 'relative',
                                 // left: `${this.state.buttonPosition.left}px`,
@@ -496,7 +500,7 @@ class App extends React.Component {
                             })
                         )
                     ),
-                    this.state.showBoard && React.createElement('div', { style: { background: "#1a1a1a", padding: "4px", marginTop: "8px", fontSize: "16px", opacity: 0.8, maxWidth: "fit-content", borderRadius: "8px" } },
+                    this.state.showBoard && React.createElement('div', { style: { background: "#1a1a1a", padding: "4px", marginTop: "8px", opacity: 0.8, maxWidth: "fit-content", borderRadius: "8px" } },
                         React.createElement('div', { className: "button-wrapper" },
                             React.createElement('button', {
                                 className: "back-button",

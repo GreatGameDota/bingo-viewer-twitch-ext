@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "rainworldMenu";
+  src: url("Rain World Segoe UI Small.ttf");
+}
+
 @keyframes flicker {
     0%, 100% {
         opacity: 1;
@@ -34,7 +39,10 @@
     border: 2px solid transparent;
     padding: 8px 16px;
     cursor: pointer;
-    font: 600 10pt \"Segoe UI\", sans-serif;
+    font-family: "rainworldMenu";
+    font-size: 16px;
+    min-width: 120px;
+    min-height: 36px;
     text-transform: uppercase;
     position: relative;
 }
@@ -76,7 +84,8 @@
     /* border: 2px solid white; */
     border-radius: 8px;
     padding: 6px 8px;
-    font: 600 10pt \"Segoe UI\", sans-serif;
+    font-family: "rainworldMenu";
+    font-size: 16px;
     cursor: pointer;
     position: relative;
     outline: 2px solid white;
@@ -114,7 +123,8 @@
     color: white;
     padding: 8px 16px;
     cursor: pointer;
-    font: 600 10pt \"Segoe UI\", sans-serif;
+    font-family: "rainworldMenu";
+    font-size: 16px;
     position: relative;
 }
 
