@@ -18,7 +18,7 @@ class BingoCanvas extends React.Component {
             font: "16px \"rainworldMenu\""
         };
         var transpose = true;
-        const colors = ["#e60e0e66", "#0080ff66", "#33ff0066", "#ff990066", "#ff00ff66", "#00e8e666", "#5e5e6f66", "#4d00ff66", "#ff788366", "#61519a66", "#ffffff66"];
+        const colors = ["#e60e0e66", "#0080ff66", "#33ff0066", "#ff990066", "#ff00ff66", "#00e8e666", "#5e5e6f66", "#5833ca66", "#ff788366", "#c7d9ff66", "#ffffff66"];
 
         var s = this.props.bingoString;
         const parts = s.split(";");
@@ -197,7 +197,7 @@ class BingoCanvas extends React.Component {
                     this.tooltipRef.current.style.display = 'block';
                     this.tooltipRef.current.style.left = left + 'px';
                     this.tooltipRef.current.style.top = top + 'px';
-                    this.tooltipRef.current.innerHTML = `<span style="font-size:16px;">${board.goals[idx].category}</span><br><span>${board.goals[idx].description}</span>`;
+                    this.tooltipRef.current.innerHTML = `<div style="display:flex;flex-direction:column"><span>${board.goals[idx].category}</span><span style="border:solid;border-width:1px 0 0 0;border-color:#52525c;margin:1px 0"></span><span>${board.goals[idx].description}</span></div>`;
                 }
             } else {
                 if (this.tooltipRef.current)
